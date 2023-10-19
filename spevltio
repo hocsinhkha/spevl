@@ -1,0 +1,197 @@
+
+-- themes
+local themes = {
+    Background = Color3.fromRGB(24, 24, 24),
+    Glow = Color3.fromRGB(0, 0, 0),
+    Accent = Color3.fromRGB(10, 10, 10),
+    LightContrast = Color3.fromRGB(20, 20, 20),
+    DarkContrast = Color3.fromRGB(14, 14, 14),
+    TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+-- first page
+local page = venyx:addPage("AutoFarm", 5012544693)
+local section1 = page:addSection("AutoTrain")
+local section2 = page:addSection("AutoKill")
+local section3 = page:addSection("AutoCoin")
+
+section1:addToggle(
+    "Auto-Full-Train",
+    nil,
+    function(value)
+        AutoFullTrain = value
+    end
+)
+
+section1:addToggle(
+    "Auto-Strenght",
+    nil,
+    function(value)
+        AutoStrenght = value
+    end
+)
+
+section1:addToggle(
+    "Auto-Endurance",
+    nil,
+    function(value)
+        AutoEndurance = value
+    end
+)
+
+section1:addToggle(
+    "Auto-Energy",
+    nil,
+    function(value)
+        AutoEnergy = value
+    end
+)
+
+section1:addToggle(
+    "Auto-Agility",
+    nil,
+    function(value)
+        AutoAgility = value
+    end
+)
+
+section2:addToggle(
+    "Auto-Kill-NPC",
+    nil,
+    function(value)
+        AutoKillNPC = value
+    end
+)
+
+section3:addToggle(
+    "Collect-Coin",
+    nil,
+    function(value)
+        CollectCoin = value
+    end
+)
+
+-- second page
+local theme = venyx:addPage("Credits", 5012544693)
+local colors = theme:addSection("Credits")
+
+colors:addButton(
+    "MaGiXx#2325",
+    function()
+        setclipboard("MaGiXx#2325")
+    end
+)
+
+colors:addButton(
+    "Discord Server MaGiXx",
+    function()
+        setclipboard("https://discord.gg/rANQFVv5Hn")
+    end
+)
+
+
+-- load
+venyx:SelectPage(venyx.pages[1], true)
+
+game:GetService("RunService").Stepped:connect(
+    function()
+
+
+
+        if AutoKillNPC == true then
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+            for i, v in pairs(game:GetService("Workspace").Enemies["1"]:GetChildren()) do
+                for i, v1 in pairs(v:GetChildren()) do
+                    if v1.Name == "HumanoidRootPart" then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                            CFrame.new(v1.CFrame.Position + Vector3.new(0, -5, 0))
+                        game:service "VirtualUser":ClickButton1(Vector2.new())
+                    end
+                end
+            end
+            local X, Y, Z = 8, 0, 0
+            local part = game.workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+            part.CFrame = part.CFrame * CFrame.Angles(X, Y, Z)
+            game:service "VirtualUser":ClickButton1(Vector2.new())
+            can = true
+        else
+            if can == true then
+                can = false
+                local X, Y, Z = -8, 0, 0
+                local part = game.workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+                part.CFrame = part.CFrame * CFrame.Angles(X, Y, Z)
+            end
+        end
+        if CollectCoin == true then
+            for i, v in pairs(game:GetService("Workspace").DropSpawns.Earth:GetChildren()) do
+                for i, v1 in pairs(v:GetChildren()) do
+                    for i, v2 in pairs(v:GetChildren()) do
+                        if v2.Name == "Coin" or v2.Name == "CoinTreasure" then
+                            v2.CFrame =
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)
+                        end
+                    end
+                end
+            end
+        end
+        if AutoFullTrain == true then
+            local tool =
+                game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool") or
+                game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+            if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+                tool:Activate()
+            end
+        end
+
+    end
+)
+
+while wait() do
+        if AutoStrenght == true then
+local tool =
+                game.Players.LocalPlayer.Backpack:FindFirstChild("Basic Fists") or
+                game.Players.LocalPlayer.Character:FindFirstChild("Basic Fists")
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+                wait(.5)
+                game:service "VirtualUser":ClickButton1(Vector2.new())
+        end
+        if AutoEndurance == true then
+                local tool =
+                game.Players.LocalPlayer.Backpack:FindFirstChild("Basic Workout") or
+                game.Players.LocalPlayer.Character:FindFirstChild("Basic Workout")
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+                wait(.5)
+                game:service "VirtualUser":ClickButton1(Vector2.new())
+        end
+
+        if AutoEnergy == true then
+local tool =
+                game.Players.LocalPlayer.Backpack:FindFirstChild("Basic Ki") or
+                game.Players.LocalPlayer.Character:FindFirstChild("Basic Ki")
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+                wait(.5)
+        end
+        
+                if AutoAgility == true then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+            CFrame.new(
+            250.815552,
+            30.1924229,
+            183.935043,
+            0.0267461445,
+            5.98590049e-08,
+            0.999642253,
+            -2.3481542e-08,
+            1,
+            -5.92521623e-08,
+            -0.999642253,
+            -2.18883756e-08,
+            0.0267461445
+        )
+
+        game:GetService("Workspace")[game.Players.LocalPlayer.Name].Humanoid:MoveTo(
+            game:GetService("Workspace").NPCs["Quest Master"].NPC.HumanoidRootPart.Position
+        )
+        end
+end
